@@ -20,6 +20,10 @@
 
 extern "C" {
 
+void cass_log_init() {
+    cass::Logger::external_init();
+}
+
 void cass_log_cleanup() {
   cass::Logger::cleanup();
 }
@@ -150,6 +154,14 @@ void Logger::cleanup() {
 
 void Logger::internal_init() {
   thread_.reset(new LogThread(queue_size_));
+}
+
+void Logger::external_init() {
+  if (NULL == thread_)
+  {
+    // Create a new thread if the current _thread is NULL.
+    thread_.reset(new LogThread(queue_size_));
+  }   
 }
 
 } // namespace cass
