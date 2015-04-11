@@ -68,7 +68,9 @@ public:
 
   // Testing only
   static bool is_flushed() { return thread_->is_flushed(); }
-
+  
+  static void external_init();
+  
 private:
   class LogThread : public LoopThread {
   public:
